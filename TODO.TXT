@@ -1,0 +1,6 @@
+Arreglar:
+- no toma la ultima linea el ensamblador ni el generador de instrucciones
+- agregar valores de la señal alu-op
+- anotar que opcodes no se usan
+- detalle de LOAD y STORE explicar que dos opcode corresponden a la misma instruccion
+
