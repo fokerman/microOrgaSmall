@@ -18,7 +18,7 @@ if __name__ == '__main__':
         outputH=filename[:-4] + ".txt"
     else:
         output=filename + ".mem"
-        outputH=filename[:-4] + ".txt"
+        outputH=filename + ".txt"
 
     tokens = tokenizator(filename)
     instructions,labels = removeLabels(tokens)
