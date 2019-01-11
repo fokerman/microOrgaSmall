@@ -1,0 +1,212 @@
+00000:
+    load_Int_microOp load_microOp
+    PC_enOut MM_enAddr
+    MM_enOut DE_loadH PC_inc
+    PC_enOut MM_enAddr
+    MM_enOut DE_loadL PC_inc
+    load_microOp
+    reset_microOp
+
+00001: ; ADD
+    ALU_enA RB_enOut RB_selectIndexOut=0 ; A <- Rx
+    ALU_enB RB_enOut RB_selectIndexOut=1 ; B <- Ry
+    ALU_OP=ADD ALU_opW
+    RB_enIn RB_selectIndexIn=0 ALU_enOut ; Rx <- Rx + Ry
+    reset_microOp
+
+00010: ; ADC
+    ALU_enA RB_enOut RB_selectIndexOut=0 ; A <- Rx
+    ALU_enB RB_enOut RB_selectIndexOut=1 ; B <- Ry
+    ALU_OP=ADC ALU_opW
+    RB_enIn RB_selectIndexIn=0 ALU_enOut ; Rx <- Rx + Ry + flag_C
+    reset_microOp
+    
+00011: ; SUB
+    ALU_enA RB_enOut RB_selectIndexOut=0 ; A <- Rx
+    ALU_enB RB_enOut RB_selectIndexOut=1 ; B <- Ry
+    ALU_OP=SUB ALU_opW
+    RB_enIn RB_selectIndexIn=0 ALU_enOut ; Rx <- Rx - Ry
+    reset_microOp
+  
+00100: ; AND
+    ALU_enA RB_enOut RB_selectIndexOut=0 ; A <- Rx
+    ALU_enB RB_enOut RB_selectIndexOut=1 ; B <- Ry
+    ALU_OP=AND ALU_opW
+    RB_enIn RB_selectIndexIn=0 ALU_enOut ; Rx <- Rx and Ry
+    reset_microOp
+
+00101: ; OR
+    ALU_enA RB_enOut RB_selectIndexOut=0 ; A <- Rx
+    ALU_enB RB_enOut RB_selectIndexOut=1 ; B <- Ry
+    ALU_OP=OR ALU_opW
+    RB_enIn RB_selectIndexIn=0 ALU_enOut ; Rx <- Rx or Ry
+    reset_microOp
+  
+00110: ; XOR
+    ALU_enA RB_enOut RB_selectIndexOut=0 ; A <- Rx
+    ALU_enB RB_enOut RB_selectIndexOut=1 ; B <- Ry
+    ALU_OP=XOR ALU_opW
+    RB_enIn RB_selectIndexIn=0 ALU_enOut ; Rx <- Rx xor Ry
+    reset_microOp
+  
+00111: ; CMP
+    ALU_enA RB_enOut RB_selectIndexOut=0 ; A <- Rx
+    ALU_enB RB_enOut RB_selectIndexOut=1 ; B <- Ry
+    ALU_OP=SUB ALU_opW
+    reset_microOp
+  
+01000: ; MOV
+    RB_enIn RB_selectIndexIn=0 RB_enOut RB_selectIndexOut=1 ; Rx <- Ry
+    reset_microOp
+
+01001: ; PUSH |Rx|, Ry
+    MM_enAddr                       RB_enOut RB_selectIndexOut=0   ; addr <- Rx
+    MM_load                         RB_enOut RB_selectIndexOut=1   ; [Rx] <- Ry
+    ALU_enA                         RB_enOut RB_selectIndexOut=0   ; A <- Rx
+    ALU_enB                         ALU_enOut ALU_OP=cte0x01       ; B <- 1
+    RB_enIn RB_selectIndexIn=0      ALU_enOut ALU_OP=SUB           ; Rx <- Rx - 1
+    reset_microOp
+
+01010: ; POP  |Rx|, Ry
+    ALU_enA                         RB_enOut RB_selectIndexOut=0   ; A <- Rx
+    ALU_enB                         ALU_enOut ALU_OP=cte0x01       ; B <- 1
+    RB_enIn RB_selectIndexIn=0      ALU_enOut ALU_OP=ADD           ; Rx <- Rx + 1
+    MM_enAddr                       RB_enOut RB_selectIndexOut=0   ; addr <- Rx
+    RB_enIn RB_selectIndexIn=1      MM_enOut                       ; Ry <- [Rx]
+    reset_microOp
+    
+01011: ; CALL |Rx|, Ry
+    MM_enAddr                       RB_enOut RB_selectIndexOut=0   ; addr <- Rx
+    MM_load                         PC_enOut                       ; [Rx] <- PC
+    ALU_enA                         RB_enOut RB_selectIndexOut=0   ; A <- Rx
+    ALU_enB                         ALU_enOut ALU_OP=cte0x01       ; B <- 1
+    RB_enIn RB_selectIndexIn=0      ALU_enOut ALU_OP=SUB           ; RX <- RX + 1
+    PC_load                         RB_enOut RB_selectIndexOut=1   ; PC <- Ry
+    reset_microOp
+    
+01100: ; CALL |Rx|, M
+    MM_enAddr                       RB_enOut RB_selectIndexOut=0   ; addr <- Rx
+    MM_load                         PC_enOut                       ; [Rx] <- PC
+    ALU_enA                         RB_enOut RB_selectIndexOut=0   ; A <- Rx
+    ALU_enB                         ALU_enOut ALU_OP=cte0x01       ; B <- 1
+    RB_enIn RB_selectIndexIn=0      ALU_enOut ALU_OP=SUB           ; RX <- RX - 1
+    PC_load                         DE_enOutImm                    ; PC <- M
+    reset_microOp
+    
+01101: ; RET  |Rx|
+    ALU_enA                         RB_enOut RB_selectIndexOut=0   ; A <- Rx
+    ALU_enB                         ALU_enOut ALU_OP=cte0x01       ; B <- 1
+    RB_enIn RB_selectIndexIn=0      ALU_enOut ALU_OP=ADD           ; RX <- RX + 1
+    MM_enAddr                       RB_enOut RB_selectIndexOut=0   ; addr <- Rx
+    PC_load                         MM_enOut                       ; PC <- [Rx]
+    reset_microOp
+    
+01110: ; RETI |Rx|
+    ALU_enA                         RB_enOut RB_selectIndexOut=0   ; A <- Rx
+    ALU_enB                         ALU_enOut ALU_OP=cte0x01       ; B <- 1
+    RB_enIn RB_selectIndexIn=0      ALU_enOut ALU_OP=ADD           ; Rx <- Rx + 1
+    MM_enAddr                       RB_enOut RB_selectIndexOut=0   ; addr <- Rx
+    PC_load                         MM_enOut                       ; PC <- [Rx]  
+    ALU_enA                         RB_enOut RB_selectIndexOut=0   ; A <- Rx
+    ALU_enB                         ALU_enOut ALU_OP=cte0x01       ; B <- 1
+    RB_enIn RB_selectIndexIn=0      ALU_enOut ALU_OP=ADD           ; Rx <- Rx + 1
+    MM_enAddr                       RB_enOut RB_selectIndexOut=0   ; addr <- Rx
+    ALU_enA                         MM_enOut                       ; A <- [Rx]
+    ALU_OP=LOAD_FLAGS                                              ; flags <- A
+    reset_microOp
+
+01111: ; reserved
+    reset_microOp
+    
+10000: ; STR [M] <- Rx
+    MM_enAddr                     DE_enOutImm                  ; addr <- M
+    MM_load                       RB_enOut RB_selectIndexOut=0 ; [M] <- Rx
+    reset_microOp
+
+10001: ; LOAD Rx <- [M]
+    MM_enAddr                     DE_enOutImm                  ; addr <- M
+    RB_enIn RB_selectIndexIn=0    MM_enOut                     ; Rx <- [M]
+    reset_microOp
+
+10010: ; STR [Rx] <- Ry
+    MM_enAddr                     RB_enOut RB_selectIndexOut=0 ; addr <- Rx
+    MM_load                       RB_enOut RB_selectIndexOut=1 ; [Rx] <- Ry
+    reset_microOp
+
+10011: ; LOAD Rx <- [Ry]
+    MM_enAddr                     RB_enOut RB_selectIndexOut=1 ; addr <- Ry
+    RB_enIn RB_selectIndexIn=0    MM_enOut                     ; Rx <- [Ry]
+    reset_microOp
+
+10100: ; JMP 
+    PC_load    DE_enOutImm   ; PC <- M
+    reset_microOp
+
+10101: ; JC
+    JC_microOp load_microOp ; if C then microOp+2 else microOp+1
+    reset_microOp
+    PC_load    DE_enOutImm  ; PC <- M
+    reset_microOp
+    
+10110: ; JZ
+    JZ_microOp load_microOp ; if Z then microOp+2 else microOp+1
+    reset_microOp
+    PC_load    DE_enOutImm  ; PC <- M    
+    reset_microOp
+    
+10111: ; JN
+    JN_microOp load_microOp ; if N then microOp+2 else microOp+1
+    reset_microOp
+    PC_load    DE_enOutImm  ; PC <- M
+    reset_microOp
+
+11000: ; JO
+    JO_microOp load_microOp ; if O then microOp+2 else microOp+1
+    reset_microOp
+    PC_load    DE_enOutImm  ; PC <- M
+    reset_microOp
+  
+11001: ; SHRA Rx, t
+    ALU_enA                     RB_enOut RB_selectIndexOut=0  ; A <- Rx
+    RB_enIn RB_selectIndexIn=0  ALU_enOut ALU_OP=SHRA ALU_opW ; Rx <- A >>> t
+    reset_microOp
+
+11010: ; SHR
+    ALU_enA                     RB_enOut RB_selectIndexOut=0  ; A <- Rx
+    RB_enIn RB_selectIndexIn=0  ALU_enOut ALU_OP=SHR ALU_opW  ; Rx <- A >> t
+    reset_microOp
+  
+11011: ; SHL
+    ALU_enA                     RB_enOut RB_selectIndexOut=0  ; A <- Rx
+    RB_enIn RB_selectIndexIn=0  ALU_enOut ALU_OP=SHL ALU_opW  ; Rx <- A << t
+    reset_microOp
+
+11100: ; READF  Rx
+    ALU_OP=READ_FLAGS                      ; Out <- flags
+    RB_enIn   ALU_enOut RB_selectIndexIn=0 ; Rx <- Out
+    reset_microOp
+
+11101: ; LOADF Rx
+    ALU_enA    RB_enOut RB_selectIndexIn=0 ; A <- RX
+    ALU_OP=LOAD_FLAGS                      ; flags <- A
+    reset_microOp
+    
+11110: ; SET
+    RB_enIn RB_selectIndexIn=0 DE_enOutImm ; Rx <- M
+    reset_microOp
+
+11111: ; INTERRUPT
+    IC_intAck
+    MM_enAddr            RB_enOut  RB_selectSP        ; addr <- SP
+    MM_load              ALU_enOut ALU_OP=READ_FLAGS  ; [SP] <- flags
+    ALU_enA              RB_enOut  RB_selectSP        ; A <- SP
+    ALU_enB              ALU_enOut ALU_OP=cte0x01     ; B <- 1
+    RB_enIn RB_selectSP  ALU_enOut ALU_OP=SUB         ; SP <- SP - 1
+    MM_enAddr            RB_enOut  RB_selectSP        ; addr <- SP
+    MM_load              PC_enOut                     ; [SP] <- PC
+    ALU_enA              RB_enOut  RB_selectSP        ; A <- SP
+    ALU_enB              ALU_enOut ALU_OP=cte0x01     ; B <- 1
+    RB_enIn RB_selectSP  ALU_enOut ALU_OP=SUB         ; SP <- SP - 1
+    MM_enAddr            ALU_enOut ALU_OP=cte0xFF     ; addr <- 0xFF
+    PC_load              MM_enOut                     ; PC <- [0xFF]
+    reset_microOp
