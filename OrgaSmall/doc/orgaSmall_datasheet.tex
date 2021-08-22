@@ -194,19 +194,16 @@ Cada uno de estos componentes es controlado por medio del conjunto de entradas y
 \texttt{flags(3)}                                                    & Entrada de \emph{flags}.\\
 \texttt{RB\_enIn(1)} y \texttt{RB\_enOut(1)}                         & Señales de habilitación para Registros\\
 \texttt{RB\_inSelect(1)} y \texttt{RB\_outSelect(1)}                 & Señales de selección para Registros\\
-\texttt{DM\_enOut(1)} y \texttt{DM\_load(1)}                         & Señales para la Memoria de Datos\\
-\texttt{DM\_enAddr(1)}                                               & Habilita escribir el registros de direcciones de la memoria de datos.\\
-\texttt{DM\_selectAddr(1)}                                           & Selecciona si la dirección de la memoria de datos proviene de un valor inmediato o del bus de datos.\\
+\texttt{MM\_enOut(1)} y \texttt{MM\_load(1)}                         & Señales para la Memoria.\\
+\texttt{MM\_enAddr(1)}                                               & Habilita cargar la dirección.\\
 \texttt{ALU\_enA(1)}, \texttt{ALU\_enB(1)} y \texttt{ALU\_enOut(1)}  & Señales de habilitación de la ALU.\\
 \texttt{ALU\_opW(1)}, \texttt{ALU\_OP(4)}                            & Señales de control de la ALU.\\
 \texttt{PC\_load(1)}, \texttt{PC\_inc(1)} y \texttt{PC\_enOut(1)}    & Señales de control de PC.\\
-\texttt{IM\_enIn(1)}                                                 & Habilita la entrada de una dirección a la memoria de direcciones.\\
 \texttt{DE\_enOutImm(1)}                                             & Habilita la entrada al bus de un valor inmediato.\\
+\texttt{DE\_loadL(8)} y \texttt{DE\_loadH(8)}                        & Indica cargar la mitad alta o baja.\\
 % \hline
 \end{tabular}
 \end{center}
-
-\normalsize
 
 Algunas de estas entradas y salidas están conectadas directamente al bus del sistema, mientras que otras son utilizadas como señales de control.
 Estas últimas están directamente conectadas a la unidad de control (\texttt{UC}).

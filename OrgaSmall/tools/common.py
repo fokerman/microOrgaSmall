@@ -4,29 +4,38 @@
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
-#01 ADD  00001 XXXYYY-----
-#02 ADC  00010 XXXYYY-----
-#03 SUB  00011 XXXYYY-----
-#04 AND  00100 XXXYYY-----
-#05 OR   00101 XXXYYY-----
-#06 XOR  00110 XXXYYY-----
-#07 CMP  00111 XXXYYY-----
-#08 MOV  01000 XXXYYY-----
-
-#16 STR  10000 XXXMMMMMMMM
-#17 LOAD 10001 XXXMMMMMMMM
-
-#20 JMP  10100 ---MMMMMMMM
-#21 JC   10101 ---MMMMMMMM
-#22 JZ   10110 ---MMMMMMMM
-#23 JN   10111 ---MMMMMMMM
-
-#24 INC  11000 XXX--------
-#25 DEC  11001 XXX--------
-#26 SHR  11010 XXXYYY-----
-#27 SHL  11011 XXXYYY-----
-
-#31 SET  11111 XXXIIIIIIII
+# 00 - Fech Reserved  - 00000 - -----------
+# 01 - ADD Rx, Ry     - 00001 - XXXYYY-----
+# 02 - ADC Rx, Ry     - 00010 - XXXYYY-----
+# 03 - SUB Rx, Ry     - 00011 - XXXYYY-----
+# 04 - AND Rx, Ry     - 00100 - XXXYYY-----
+# 05 - OR  Rx, Ry     - 00101 - XXXYYY-----
+# 06 - XOR Rx, Ry     - 00110 - XXXYYY-----
+# 07 - CMP Rx, Ry     - 00111 - XXXYYY-----
+# 08 - MOV Rx, Ry     - 01000 - XXXYYY-----
+# 09 - Free           - 01001 - -----------
+# 10 - Free           - 01010 - -----------
+# 11 - Free           - 01011 - -----------
+# 12 - Free           - 01100 - -----------
+# 13 - Free           - 01101 - -----------
+# 14 - Free           - 01110 - -----------
+# 15 - Free           - 11111 - -----------
+# 16 - STR  [M],  Rx  - 10000 - XXXMMMMMMMM
+# 17 - LOAD  Rx, [M]  - 10001 - XXXMMMMMMMM
+# 18 - Free           - 10010 - -----------
+# 19 - Free           - 10011 - -----------
+# 20 - JMP M          - 10100 - ---MMMMMMMM
+# 21 - JC  M          - 10101 - ---MMMMMMMM
+# 22 - JZ  M          - 10110 - ---MMMMMMMM
+# 23 - JN  M          - 10111 - ---MMMMMMMM
+# 24 - INC Rx         - 11000 - XXX--------
+# 25 - DEC Rx         - 11001 - XXX--------
+# 26 - SHR Rx, t      - 11010 - XXXYYY-----
+# 27 - SHL Rx, t      - 11011 - XXXYYY-----
+# 28 - Free           - 11100 - XXX--------
+# 29 - Free           - 11101 - XXX--------
+# 30 - SET Rx, I      - 11111 - XXXIIIIIIII
+# 31 - Free           - 11110 - -----------
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
@@ -41,7 +50,7 @@ def tokenizator(filename):
     newline=['\n']
     comment=[';']
     blank=[' ','\t']+newline+comment
-    reserve=['[',']',',',':']
+    reserve=['[',']',',',':','|']
 
     with open(filename) as f:
         line=[]
@@ -105,6 +114,7 @@ def removeLabels(tokens):
     labels={}
     for t in tokens:
         if len(t)<2:
+            raise ValueError("Error: Can not convert \"" + t[0] + "\"")
             return None, None
         if t[1]==reserveLabel:
             labels[t[0]]=instCount

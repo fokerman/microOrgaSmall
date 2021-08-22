@@ -18,14 +18,14 @@ if __name__ == '__main__':
     else:
         output=filename + ".mem"
 
-    tokens = tokenizator(filename)
-    microCode = parseOpcodes(tokens)
-    code = codeValues(microCode)
-    printMicroCode(output,code)
+    try:
+        tokens = tokenizator(filename)
+        microCode = parseOpcodes(tokens)
+        code = codeValues(microCode)
+        printMicroCode(outputM,code)
 
-
-
-
+    except ValueError as e:
+        print(e)
 
 
 

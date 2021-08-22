@@ -37,7 +37,7 @@
 # 27 - SHL   Rx, t    - 11011 - XXXYYY-----
 # 28 - READF Rx       - 11100 - XXX--------
 # 29 - LOADF Rx       - 11101 - XXX--------
-# 30 - SET Rx, M      - 11111 - XXXMMMMMMMM
+# 30 - SET Rx, I      - 11111 - XXXIIIIIIII
 # 31 - Int Reserved   - 11110 - -----------
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 

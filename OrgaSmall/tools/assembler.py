@@ -14,16 +14,20 @@ if __name__ == '__main__':
 
     filename = sys.argv[1]
     if filename[-4:] == ".asm":
-        output=filename[:-4] + ".mem"
+        outputM=filename[:-4] + ".mem"
         outputH=filename[:-4] + ".txt"
     else:
-        output=filename + ".mem"
+        outputM=filename + ".mem"
         outputH=filename + ".txt"
 
-    tokens = tokenizator(filename)
-    instructions,labels = removeLabels(tokens)
-    parseBytes, parseHuman = parseInstructions(instructions,labels)
-    if parseBytes != None:
-        printCode(output,parseBytes)
-    if parseHuman != None:
-        printHuman(outputH,parseHuman,labels,filename)
+    try:
+        tokens = tokenizator(filename)
+        instructions,labels = removeLabels(tokens)
+        parseBytes, parseHuman = parseInstructions(instructions,labels)
+        if parseBytes != None:
+            printCode(outputM,parseBytes)
+        if parseHuman != None:
+            printHuman(outputH,parseHuman,labels,filename)
+
+    except ValueError as e:
+        print(e)
