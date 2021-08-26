@@ -22,7 +22,7 @@ if __name__ == '__main__':
         tokens = tokenizator(filename)
         microCode = parseOpcodes(tokens)
         code = codeValues(microCode)
-        printMicroCode(outputM,code)
+        printMicroCode(output,code)
 
     except ValueError as e:
         print(e)
