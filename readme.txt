@@ -10,6 +10,16 @@
  the instruction cycle, how works a data path or even how to design a new
  instruction.
 
+- Von Neumann Architecture, instructions and data in the same memory.
+- 8 general purpose registers.
+- One special register por program counter.
+- Word size and bus 8 bits. Instructions 16 bits.
+- Microprogramed design.
+
+  Only version with interrupt:
+- Support for 3 in-out ports, two ports for input, and one port for output.
+- One interrupt for detect changes in one input port.
+
  For more information, read the documentation (for now is only in spansh,
  I will try traslate it).
 
