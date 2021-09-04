@@ -59,10 +59,16 @@ def tokenizator(filename):
         line=[]
         word=""
         isComment=False
+        lastLine=False
         while True:
             c = f.read(1)
-            if not c:
+
+            if lastLine:
                 break
+
+            if not c:
+                c=newline[0]
+                lastLine=True
             
             if not isComment:
                 
