@@ -13,3 +13,7 @@ test02.asm: Sorting algorithm
 test03.asm: IO Pooling, copy outputs with delay
 
 test04.asm: Interruption rutine test, interrupt counter
+
+test05.asm: Interruption rutine test, counter with restart
+
+test06.asm: Interruption rutine, pulse signal controller
