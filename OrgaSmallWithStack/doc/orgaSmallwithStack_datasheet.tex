@@ -26,7 +26,7 @@
 
 \begin{center}
 \begin{tabular}[c]{p{6.5cm}p{8cm}}
-\includegraphics[scale=0.7]{img/arquitectura_micro_IO.pdf}
+\includegraphics[scale=0.7]{img/arquitectura_micro_stack.pdf}
 &
 \vspace{-5.5cm}
 \begin{minipage}{8cm}
@@ -73,7 +73,7 @@ D    & \texttt{OOOOO XXXMMMMMMMM} & \texttt{XXX} = Registro X, \texttt{MMMMMMMM}
  \item En la columna de codificación, los bits indicados con \texttt{-} son reservados y deben valer cero.
  \item Las instrucciones de \texttt{opcode} 0 y 31 son instrucciones reservadas para \emph{fetch} e interrupciones.
  \item Las instrucciones de \texttt{opcode} 14, 15 y 31 están libres para codificar nuevas instrucciones.
- \item El operador \texttt{|} se utiliza para indentificar el registro usado como tope de la pila (ejemplo \texttt{|Rx|}
+ \item El operador \texttt{|} se utiliza para indentificar el registro usado como tope de la pila (ej. \texttt{|Rx|})
 \end{itemize}
 \normalsize
 
@@ -233,7 +233,7 @@ Cada uno de estos componentes es controlado por medio del conjunto de entradas y
 \multicolumn{2}{l}{ \texttt{ControlUnit} (Unidad de Control) }\\ %Secuenciador de microinstrucciones, genera señales que ejecutan el ciclo de instrucción.\\
 \hline
 \texttt{inOpcode(5)}                                                 & Entrada de \emph{Opcode}.\\
-\texttt{flags(3)}                                                    & Entrada de \emph{flags}.\\
+\texttt{flags(4)}                                                    & Entrada de \emph{flags}.\\
 \texttt{RB\_enIn(1)} y \texttt{RB\_enOut(1)}                         & Señales de habilitación para Registros.\\
 \texttt{RB\_inSelect(1)} y \texttt{RB\_outSelect(1)}                 & Señales de selección para Registros.\\
 \texttt{MM\_enOut(1)} y \texttt{MM\_load(1)}                         & Señales para la Memoria de Datos.\\
