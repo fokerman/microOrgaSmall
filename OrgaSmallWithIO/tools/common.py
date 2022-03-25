@@ -254,8 +254,7 @@ def parseInstructions(instructions,labels):
                 
             # PUSH |Rx|, Ry || POP |Rx|, Ry || CALL |Rx|, Ry || CALL |Rx|, M
             elif i[0] in type_SR:
-                # ERROR FALTA INDICAR EL REGISTRO PILA
-                if len(i) < 5:
+                if len(i) <= 5:
                     raise ValueError("Error: Missing stack register")
                     break
                 if i[5][0]=="R":

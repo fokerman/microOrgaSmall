@@ -72,8 +72,8 @@ D    & \texttt{OOOOO XXXMMMMMMMM} & \texttt{XXX} = Registro X, \texttt{MMMMMMMM}
  \item \texttt{t}: Valor inmediato de desplazamiento, número entre \texttt{0} y \texttt{7}. Se codifica como \texttt{YYY}.
  \item En la columna de codificación, los bits indicados con \texttt{-} son reservados y deben valer cero.
  \item Las instrucciones de \texttt{opcode} 0 y 31 son instrucciones reservadas para \emph{fetch} e interrupciones.
- \item La instrucción de \texttt{opcode} 15 es libre para codificar nuevas instrucciones.
- \item El operador \texttt{|} se utiliza para indentificar el registro usado como tope de la pila (eje \texttt{|Rx|}
+ \item Las instrucciones de \texttt{opcode} 14, 15 y 31 están libres para codificar nuevas instrucciones.
+ \item El operador \texttt{|} se utiliza para indentificar el registro usado como tope de la pila (ejemplo \texttt{|Rx|}
 \end{itemize}
 \normalsize
 
@@ -100,7 +100,7 @@ Instrucción            & Acción                                               
 \texttt{RET  |Rx|}     & \texttt{Rx} $\leftarrow$ \texttt{Rx+1} ; \texttt{PC} $\leftarrow$ \texttt{Mem[Rx]}    & \texttt{01101 XXX--------} \\  %13
 \hline
 \texttt{Libre}         &                                                                    & \texttt{01110 -----------} \\  %14
-\texttt{Libre}         &                                                                    & \texttt{11111 -----------} \\  %15
+\texttt{Libre}         &                                                                    & \texttt{01111 -----------} \\  %15
 \hline
 \texttt{STR  [M], Rx}  & \texttt{Mem[M]} $\leftarrow$ \texttt{Rx}                           & \texttt{10000 XXXMMMMMMMM} \\  %16
 \texttt{LOAD Rx, [M]}  & \texttt{Rx} $\leftarrow$ \texttt{Mem[M]}                           & \texttt{10001 XXXMMMMMMMM} \\  %17
@@ -120,9 +120,9 @@ Instrucción            & Acción                                               
 \texttt{READF Rx}      & \texttt{Rx}    $\leftarrow$ \texttt{Flags}                         & \texttt{11100 XXX--------} \\  %28
 \texttt{LOADF Rx}      & \texttt{Flags} $\leftarrow$ \texttt{Rx}                            & \texttt{11101 XXX--------} \\  %29
 \hline
-\texttt{SET Rx, M}     & \texttt{Rx} $\leftarrow$ \texttt{M}                                & \texttt{11111 XXXMMMMMMMM} \\  %30
+\texttt{SET Rx, M}     & \texttt{Rx} $\leftarrow$ \texttt{M}                                & \texttt{11110 XXXMMMMMMMM} \\  %30
 \hline
-\texttt{Libre}         &                                                                    & \texttt{11110 -----------} \\  %31
+\texttt{Libre}         &                                                                    & \texttt{11111 -----------} \\  %31
 \end{tabular}
 \end{center}
 
