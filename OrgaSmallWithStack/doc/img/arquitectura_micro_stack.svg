@@ -8,7 +8,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
-   sodipodi:docname="arquitectura_micro_IO.svg"
+   sodipodi:docname="arquitectura_micro_stack.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -915,7 +915,7 @@
      inkscape:cx="125.75"
      inkscape:cy="198"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g15065-0-9-8-9"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1016"
@@ -1555,7 +1555,7 @@
            id="tspan15002-9-4-5-5"
            y="268.10504"
            x="58.083778"
-           sodipodi:role="line">5</tspan></text>
+           sodipodi:role="line">4</tspan></text>
       <path
          inkscape:connector-curvature="0"
          id="path15018-0-5-6-4"
