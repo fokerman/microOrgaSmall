@@ -44,14 +44,14 @@ sleep:
     SET R3, 0x8
     LOAD R2, [data]
     ciclo:
-    	; start SLEEP COUNTER
-            LOAD R4, [0xFC]
-            ADD R4, R3
-	    STR [0xFC], R4
-	; end SLEEP COUNTER
         SUB R2, R1
         CMP R2, R0
         JZ end_sleep
+        ; start SLEEP COUNTER
+            LOAD R4, [0xFC]
+            ADD R4, R3
+            STR [0xFC], R4
+        ; end SLEEP COUNTER
         JMP ciclo
     end_sleep:
     RET  |R7|
@@ -68,10 +68,6 @@ interrupt_handler:
     PUSH |R7|, R2
     PUSH |R7|, R3
     PUSH |R7|, R4
-    ; start INT
-        SET R0, 0xFF
-        STR [0xFC], R0
-    ; end INT
     SET R0, 0x1
     SET R1, 0x2
     LOAD R3, [0xFE]
