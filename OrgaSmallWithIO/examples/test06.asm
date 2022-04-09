@@ -17,10 +17,6 @@
 ; 0xFF = Interrupt rutine pointer
 
 ; ---------------------------------------------------------
-; main
-SET R0, 0x0
-SET R1, 0x1
-
 ; set STACK
 SET R7, 0xFB
 
@@ -31,6 +27,10 @@ STR  [0xFF], R0
 ; Set Interrupt Flag
 SET R0, 0x10
 LOADF R0
+
+; main
+SET R0, 0x0
+SET R1, 0x1
 
 ; loop
 whileTrue:
@@ -44,7 +44,6 @@ sleep:
     SET R3, 0x8
     LOAD R2, [data]
     ciclo:
-        SUB R2, R1
         CMP R2, R0
         JZ end_sleep
         ; start SLEEP COUNTER
@@ -52,13 +51,14 @@ sleep:
             ADD R4, R3
             STR [0xFC], R4
         ; end SLEEP COUNTER
+        SUB R2, R1
         JMP ciclo
     end_sleep:
     RET  |R7|
 
 ; ---------------------------------------------------------
 data:
-    DB 0x0F
+    DB 0x05
 
 ; ---------------------------------------------------------
 interrupt_handler:
@@ -84,14 +84,12 @@ interrupt_handler:
     RETI |R7|
     
     inc:
-    	SET R0, 1
         LOAD R3, [data]
         ADD R3, R0
         STR [data], R3
         JMP end_interrupt
     
     dec:
-    	SET R0, 1
         LOAD R3, [data]
         SUB R3, R0
         STR [data], R3
